@@ -1,9 +1,19 @@
+# NAME: S. HAFEEZUL DEEN 
+# REFERENCE NO. : 23008281
 # Experiment--05-Implementation-of-flipflops-using-verilog
 ### AIM: To implement all the flipflops using verilog and validating their functionality using their functional tables
 ### HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
 ### SOFTWARE REQUIRED:   Quartus prime
 ### THEORY 
-SR Flip-Flop
+# PROCEDURE:
+1.Using nand gates and wires construct sr flip flop.
+
+2.Repeat same steps to construct JK,D,T flipflops.
+
+3.Find Rtl logic and timing diagram for all flipflops.
+
+4.end the program
+# SR Flip-Flop
 SR flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, SR latch operates with enable signal. The circuit diagram of SR flip-flop is shown in the following figure.
 
 ![image](https://user-images.githubusercontent.com/36288975/167910294-bb550548-b1dc-4cba-9044-31d9037d476b.png)
@@ -29,6 +39,23 @@ By using three variable K-Map, we can get the simplified expression for next sta
  
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is
 Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
+# Program: 
+```
+module sr (q,qbar,s,r,clk);
+input s,r,clk;
+output q,qbar;
+wire nand1_out;
+wire nand2_out;
+nand(nand1_out,clk,s);
+nand(nand2_out,clk,r);
+nand(q,nand1_out,qbar);
+nand(qbar,nand2_out,q);
+endmodule
+```
+# RTL LOGIC FOR SR-FLIPFLOP:
+![291236472-3b1a5b72-89de-495c-aee9-3d620188a3e0](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/dcacd051-bab0-40eb-be94-5e15cd13f69e)
+# TIMING DIAGRAM FOR SR-FLIPFLOP:
+![291238129-6f3a0f3e-743d-4b40-b0a5-16012abe3254](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/03a969a7-bf6b-4e24-844d-691dbe56b6d3)
 
 
 ### D Flip-Flop
@@ -50,6 +77,25 @@ Qt+1t+1 = D
 ![image](https://user-images.githubusercontent.com/36288975/167908850-d39d07ba-7f9d-490a-b9f2-274e189fd047.png)
 
 Next state of D flip-flop is always equal to data input, D for every positive transition of the clock signal. Hence, D flip-flops can be used in registers, shift registers and some of the counters.
+# PROGRAM:
+```
+module d(q,qbar,d1,clk);
+input d1,clk;
+output q,qbar;
+wire n1;
+wire n2;
+not(x,d1);
+nand(n1,clk,d1);
+nand(n2,clk,x);
+nand(q,n2,qbar);
+nand(qbar,n1,q);
+endmodule 
+```
+# RTL LOGIC FOR D-FLIPFLOP:
+![291237262-386bceea-b9ce-4bbd-b3de-24c739b00876](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/e572196b-96f5-4bc7-8435-736b3cdd23e8)
+# TIMING DIAGRAM FOR D-FLIPFLOP:
+![291239316-eec7db4b-e9c8-4fa9-b44e-832e534c87f1](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/30ecf300-1851-4f28-963f-04bbdd440c16)
+
 
 
 ### JK Flip-Flop
@@ -57,7 +103,7 @@ JK flip-flop is the modified version of SR flip-flop. It operates with only posi
 ![image](https://user-images.githubusercontent.com/36288975/167910378-d2d984a7-2815-4d17-8c41-ee4bdf59ec24.png) 
 
  
-This circuit has two inputs J & K and two outputs Qtt & Qtt’. The operation of JK flip-flop is similar to SR flip-flop. Here, we considered the inputs of SR flip-flop as S = J Qtt’ and R = KQtt in order to utilize the modified SR flip-flop for 4 combinations of inputs.
+This circuit has two inputs J & K and two outputs Qtt & Qtt’. The operation of JK flip-flop is similar to SR flip-flop. Here,RTL we considered the inputs of SR flip-flop as S = J Qtt’ and R = KQtt in order to utilize the modified SR flip-flop for 4 combinations of inputs.
 The following table shows the state table of JK flip-flop.
 
 
@@ -76,6 +122,24 @@ By using three variable K-Map, we can get the simplified expression for next sta
 
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is
 Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
+# PROGRAM:
+```
+module jk(q,qbar,k,j,clk);
+input j,k,clk;
+output q,qbar;
+wire nand1_out;
+wire nand2_out;
+nand(nand1_out,j,clk,qbar);
+nand(nand2_out,k,clk,q);
+nand(q,nand1_out,qbar,qbar);
+nand(qbar,nand2_out,q);
+endmodule
+```
+# RTL LOGIC FOR JK-FLIPFLOP:
+![291236942-16b7b17c-05b3-43f3-8027-588146f6ce6e](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/4031e10f-db56-418a-8ab2-f759e8de0ae8)
+
+# TIMING DIAGRAM FOR JK-FLIPFLOP:
+![291238436-83daf3d5-ac7c-4d61-9453-8459b9e51660](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/4db15411-369a-4296-b207-f58edebf3abe)
 
 
 
@@ -101,24 +165,20 @@ From the above characteristic table, we can directly write the next state equati
 Q(t+1)=T′Q(t)+TQ(t)′
 ⇒Q(t+1)=T⊕Q(t)
 
-### Procedure
-/* write all the steps invloved */
-
-
-
-### PROGRAM 
-/*
-Program for flipflops  and verify its truth table in quartus using Verilog programming.
-Developed by: 
-RegisterNumber:  
-*/
-
-
-
-
-
-
-### RTL LOGIC FOR FLIPFLOPS 
+### PROGRAM:
+```
+module tff(t,qbar,q,clk);
+input t,clk;
+output q,qbar;
+wire n1,n2;
+nand(n1,t,clk,qbar);
+nand(n2,clk,t,q);
+nand(q,n1,qbar);
+nand(qbar,n2,q);
+endmodule
+```
+### RTL LOGIC FOR T-FLIPFLOP:
+![291237563-cd9287c0-dc88-4703-a792-61d913716f84](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/3baab4f2-3564-4e55-9146-a8291505ce4c)
 
 
 
@@ -128,7 +188,9 @@ RegisterNumber:
 
 
 
-### TIMING DIGRAMS FOR FLIP FLOPS 
+
+### TIMING DIGRAMS FOR T-FLIPFLOP:
+![291239607-df50dbed-3925-421d-986c-906b159dec2e](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/73a0ecf0-d49d-445d-a857-28460ed01bca)
 
 
 
@@ -137,4 +199,6 @@ RegisterNumber:
 
 
 
-### RESULTS 
+
+### RESULTS:
+Thus implementation of SR,JK,D and T flipflops using nand gates are done sucessfully
