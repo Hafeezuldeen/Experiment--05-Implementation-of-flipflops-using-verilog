@@ -13,7 +13,7 @@
 3.Find Rtl logic and timing diagram for all flipflops.
 
 4.end the program
-# SR Flip-Flop
+# SR FLIP-FLOP
 SR flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, SR latch operates with enable signal. The circuit diagram of SR flip-flop is shown in the following figure.
 
 ![image](https://user-images.githubusercontent.com/36288975/167910294-bb550548-b1dc-4cba-9044-31d9037d476b.png)
@@ -58,7 +58,7 @@ endmodule
 ![291238129-6f3a0f3e-743d-4b40-b0a5-16012abe3254](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/03a969a7-bf6b-4e24-844d-691dbe56b6d3)
 
 
-### D Flip-Flop
+### D-FLIPFLOP
 D flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, D latch operates with enable signal. That means, the output of D flip-flop is insensitive to the changes in the input, D except for active transition of the clock signal. The circuit diagram of D flip-flop is shown in the following figure.
  
 This circuit has single input D and two outputs Qtt & Qtt’. The operation of D flip-flop is similar to D Latch. But, this flip-flop affects the outputs only when positive transition of the clock signal is applied instead of active enable.
@@ -98,7 +98,7 @@ endmodule
 
 
 
-### JK Flip-Flop
+### JK-FLIFLOP
 JK flip-flop is the modified version of SR flip-flop. It operates with only positive clock transitions or negative clock transitions. The circuit diagram of JK flip-flop is shown in the following figure.
 ![image](https://user-images.githubusercontent.com/36288975/167910378-d2d984a7-2815-4d17-8c41-ee4bdf59ec24.png) 
 
@@ -143,7 +143,7 @@ endmodule
 
 
 
-### T Flip-Flop
+### T-FLIPFLOP
 T flip-flop is the simplified version of JK flip-flop. It is obtained by connecting the same input ‘T’ to both inputs of JK flip-flop. It operates with only positive clock transitions or negative clock transitions. The circuit diagram of T flip-flop is shown in the following figure.
 
 ![image](https://user-images.githubusercontent.com/36288975/167911534-5f3c445d-bc68-46e2-9a9c-7efce5febc60.png)
