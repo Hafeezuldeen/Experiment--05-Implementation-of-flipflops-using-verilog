@@ -41,21 +41,28 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
 ### Program: 
 ```
-module sr (q,qbar,s,r,clk);
-input s,r,clk;
-output q,qbar;
-wire nand1_out;
-wire nand2_out;
-nand(nand1_out,clk,s);
-nand(nand2_out,clk,r);
-nand(q,nand1_out,qbar);
-nand(qbar,nand2_out,q);
+module sr(S,R,clk,Q,Qbar);
+input S,R,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=S|((~R)&Q);
+Qbar=R|((~S)&(Qbar));
+end
 endmodule
 ```
 ### RTL LOGIC FOR SR-FLIPFLOP:
-![291236472-3b1a5b72-89de-495c-aee9-3d620188a3e0](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/dcacd051-bab0-40eb-be94-5e15cd13f69e)
+![291943014-add9a607-1ced-45ae-afbf-7146eccc6a49](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/f2cd191f-27d5-4572-8c50-3409ba4eaeab)
+
+### TRUTH TABLE FOR SR-FLIP FLOP:
+![291955779-771f430e-4ba4-4b6a-912b-e00541e41f1a](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/a5369caf-d15f-4cf1-99dc-9a28c3f699fa)
+
 ### TIMING DIAGRAM FOR SR-FLIPFLOP:
-![291238129-6f3a0f3e-743d-4b40-b0a5-16012abe3254](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/03a969a7-bf6b-4e24-844d-691dbe56b6d3)
+![291943698-62887fa0-7cde-417b-b61d-221bf1634863](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/efd8c0f6-9cbb-4d01-9046-10d08a2da699)
+
 
 
 # D-FLIPFLOP
@@ -79,22 +86,26 @@ Qt+1t+1 = D
 Next state of D flip-flop is always equal to data input, D for every positive transition of the clock signal. Hence, D flip-flops can be used in registers, shift registers and some of the counters.
 ### PROGRAM:
 ```
-module d(q,qbar,d1,clk);
-input d1,clk;
+module d(d,clk,q,qbar);
+input d,clk;
 output q,qbar;
-wire n1;
-wire n2;
-not(x,d1);
-nand(n1,clk,d1);
-nand(n2,clk,x);
-nand(q,n2,qbar);
-nand(qbar,n1,q);
-endmodule 
+reg q,qbar;
+always @(posedge clk)
+begin
+q=d;
+qbar=~q;
+end
+endmodul
 ```
 ### RTL LOGIC FOR D-FLIPFLOP:
-![291237262-386bceea-b9ce-4bbd-b3de-24c739b00876](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/e572196b-96f5-4bc7-8435-736b3cdd23e8)
+![291943091-c87f452c-f36e-46a8-8062-53f6f1ccc11e](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/d1f28eed-98da-49ce-a52a-ca1e128db7ae)
+
+### TRUTH TABLE FOR D-FLIFLOP:
+![291955824-b1595f18-c7cf-4987-a99c-62652a454ea6](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/d47c913d-b897-42ca-a104-ccdb45905357)
+
 ### TIMING DIAGRAM FOR D-FLIPFLOP:
-![291239316-eec7db4b-e9c8-4fa9-b44e-832e534c87f1](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/30ecf300-1851-4f28-963f-04bbdd440c16)
+![291943602-a3c83737-2ca7-451e-9f2a-20b79967ac11](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/b38dfab4-c998-4a73-893f-bea95b5dcf6b)
+
 
 
 
@@ -124,22 +135,29 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 Q(t+1)=JQ(t)′+K′Q(t)Q(t+1)=JQ(t)′+K′Q(t)
 ### PROGRAM:
 ```
-module jk(q,qbar,k,j,clk);
-input j,k,clk;
-output q,qbar;
-wire nand1_out;
-wire nand2_out;
-nand(nand1_out,j,clk,qbar);
-nand(nand2_out,k,clk,q);
-nand(q,nand1_out,qbar,qbar);
-nand(qbar,nand2_out,q);
+module jk(J,K,clk,Q,Qbar);
+input J,K,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=(J&(~Q))|((~K)&Q);
+Qbar=((~J)&(Qbar))|K&(~Qbar);
+end
 endmodule
 ```
 ### RTL LOGIC FOR JK-FLIPFLOP:
-![291236942-16b7b17c-05b3-43f3-8027-588146f6ce6e](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/4031e10f-db56-418a-8ab2-f759e8de0ae8)
+![291943071-f9fd8192-73bf-4227-92df-82c0251908c5](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/7b23c3f0-24fd-4f41-bd8f-687fc538d5f3)
+
+### TRUTH TABLE FOR JK-FLIPFLOP:
+![291955743-6be872b8-0218-4c01-82ea-7cdec0a513cc](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/1d87535b-8e5c-4d51-9400-b058bc666ed7)
+
 
 ### TIMING DIAGRAM FOR JK-FLIPFLOP:
-![291238436-83daf3d5-ac7c-4d61-9453-8459b9e51660](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/4db15411-369a-4296-b207-f58edebf3abe)
+![291943558-c3fc201a-0f64-410d-a6e4-fba519ee9c30](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/121879af-c45c-431a-803f-3be9b232f3e7)
+
 
 
 
@@ -167,30 +185,33 @@ Q(t+1)=T′Q(t)+TQ(t)′
 
 ### PROGRAM:
 ```
-module tff(t,qbar,q,clk);
-input t,clk;
+module t(clk,T,q,qbar);
+input clk,T;
 output q,qbar;
-wire n1,n2;
-nand(n1,t,clk,qbar);
-nand(n2,clk,t,q);
-nand(q,n1,qbar);
-nand(qbar,n2,q);
+reg q,qbar;
+always @(posedge clk)
+begin
+q=(T&~q)|(~T&q);
+qbar=~q;
+end
 endmodule
 ```
 ### RTL LOGIC FOR T-FLIPFLOP:
-![291237563-cd9287c0-dc88-4703-a792-61d913716f84](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/3baab4f2-3564-4e55-9146-a8291505ce4c)
+![291943113-797e77f8-2396-4ca7-96ea-c07fbb285d72](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/27812f8e-26ba-4b08-a493-18df8e0f0ecc)
 
 
 
 
 
+### TRUTH TABLE FOR T-FLIFLOP:
 
+![291955702-91e57102-9975-4c48-9a97-2d693d99e6bc](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/9dfaefb6-c378-412b-90f3-ddca4da3aeba)
 
 
 
 
 ### TIMING DIGRAMS FOR T-FLIPFLOP:
-![291239607-df50dbed-3925-421d-986c-906b159dec2e](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/73a0ecf0-d49d-445d-a857-28460ed01bca)
+![291943640-3011e448-af70-48e3-a794-bc1bc36bbe85](https://github.com/Hafeezuldeen/Experiment--05-Implementation-of-flipflops-using-verilog/assets/144979314/ca6c5a0a-d2da-4ad7-9956-29580af0a355)
 
 
 
